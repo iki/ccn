@@ -1,0 +1,45 @@
+#!/bin/sh
+
+type=csv
+output="${1:-$0.$type}"
+
+log() { echo "$@" >&2; echo "$@" >> "$0.log"; }
+err() { log ">>> error: $@"; return 1; }
+run() { "$@" || exit $?; }
+
+
+reset() {
+  local output="${1:-$output}"
+
+  [ -n "$output" ] || err "invalid output '$date'" || return 1
+
+  [ ! -e "$output" ] && log ">>> $output" && return
+
+  log "--- $output"
+
+  run rm -f "$output"
+}
+
+append() {
+  local input="${1:-$input}" output="${2:-$output}"
+
+  [ -n "$input" -a -f "$input" -a -n "$output" ] || err "invalid input or output: '$input' -> '$output'" || return 1
+
+  grep -q 'No Records Found!' "$input" && log "--- $input" && return
+
+  if [ -f "$output" ]; then
+    log "+++ $input"
+    run tail -n +2 "$input" >> "$output"
+  else
+    log "=== $input"
+    run cp "$input" "$output"
+  fi
+}
+
+
+
+run reset
+
+for input in `ls -1 *.$type`; do
+  run append "$input"
+done

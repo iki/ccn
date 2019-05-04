@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# Credentials and API requests:
+# https://docs.google.com/document/d/1LVgs9RiAu-qBJjj48GTjvY_okAeY3K8TCh7ayJqF29c/edit
+
+username=test5@prague-city.com
+password=Test@123
+client_id=uhm8tQpeZ0_fveknEp6Wcw64cYUa
+client_secret=z4gprx1JY7hafjT1vxxHCXj5fnIa
+
+type=csv
+
+
+log() { echo "$@" >&2; echo "$@" >> "$0.log"; }
+err() { log ">>> error: $@"; return 1; }
+run() { "$@" || exit $?; }
+
+auth() {
+  [ -n "$auth_token" ] && log "=== auth $auth_token" && return 
+
+  log "=== user $username"
+
+  run curl -sS -o "$0.auth" \
+   -H 'Content-Type: application/x-www-form-urlencoded' \
+   -d "username=$username&password=$password&client_id=$client_id&client_secret=$client_secret&grant_type=password" \
+   "https://ckc-emea.cisco.com/corev4/token"
+
+  auth_token=`run jq -r .access_token "$0.auth"` || return 1
+
+  [ -n "$auth_token" ] || return 1
+
+  log "=== auth $auth_token"
+}
+
+get() {
+  local date="$1" type="${2:-$type}"
+
+  [ -n "$date" -a -n "$type" ] || err "invalid date '$date' or type '$type'" || return 1
+
+  [ -f "$date.$type" ] && log "... $date $type" && return
+
+  log "+++ $date $type"
+
+  run curl -sS -o "$date.$type" \
+    -H 'Cache-Control: no-cache' \
+    -H "Authorization: Bearer $auth_token" \
+    "https://ckc-emea.cisco.com/t/prague-city.com/cdp/v1/opendata/2.0/prague?domain=airqualityreports&fromDate=${date}000000&toDate=${date}235959&pageSize=1000&pageNumber=1&format=$type"
+}
+
+
+run auth
+
+for day in {0..365}; do
+  run get `date -d "today -$day day" '+%Y%m%d'`
+done
