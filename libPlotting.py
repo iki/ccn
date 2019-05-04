@@ -1,7 +1,7 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3.6
 #-*- coding: utf-8 -*-
 
-# Copyright (C) 2013-2018 T. J.-Y. Derrien
+# Copyright (C) 2013-2019 T. J.-Y. Derrien
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,11 +48,11 @@ def plot2dHeatMap(BrutX, BrutY, BrutZ, QuantityTitle, filename, ShowFinalPlot=Tr
       ##try:
       triang = tri.Triangulation(BrutX, BrutY)
       triang.set_mask(np.hypot(BrutX[triang.triangles].mean(axis=1),
-                              BrutY[triang.triangles].mean(axis=1))
-                      < 0.15)
+                               BrutY[triang.triangles].mean(axis=1))
+                      < 0.000000015)
       refiner = tri.UniformTriRefiner(triang)
       tri_refi, z_test_refi = refiner.refine_field(BrutZ, subdiv=3)
-      plt.figure()
+      #plt.figure()
       #plt.title(r'$N_{exc}(E_1,E_2)$, $\lambda_1=$'+str(wavelength1*1E9)+r'nm, $\lambda_2=$'+str(wavelength2*1E9)+'nm.')
       fig = plt.figure()
       #ax = fig.add_subplot(111) #, projection='3d')
