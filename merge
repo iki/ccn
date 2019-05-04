@@ -2,6 +2,7 @@
 
 type=csv
 output="${1:-$0.$type}"
+input_path=daily/
 
 log() { echo "$@" >&2; echo "$@" >> "$0.log"; }
 err() { log ">>> error: $@"; return 1; }
@@ -40,6 +41,6 @@ append() {
 
 run reset
 
-for input in `ls -1 *.$type`; do
+for input in `ls -1 "$input_path"*."$type"`; do
   run append "$input"
 done

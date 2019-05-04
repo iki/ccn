@@ -9,7 +9,7 @@ client_id=uhm8tQpeZ0_fveknEp6Wcw64cYUa
 client_secret=z4gprx1JY7hafjT1vxxHCXj5fnIa
 
 type=csv
-
+output_path=daily/
 
 log() { echo "$@" >&2; echo "$@" >> "$0.log"; }
 err() { log ">>> error: $@"; return 1; }
@@ -33,15 +33,16 @@ auth() {
 }
 
 get() {
-  local date="$1" type="${2:-$type}"
+  local date="$1" type="${2:-$type}" output_path="${3:-$output_path}"
+  local output="$output_path$date.$type"
 
   [ -n "$date" -a -n "$type" ] || err "invalid date '$date' or type '$type'" || return 1
 
-  [ -f "$date.$type" ] && log "... $date $type" && return
+  [ -f "$output" ] && log "... $output" && return
 
-  log "+++ $date $type"
+  log "+++ $output"
 
-  run curl -sS -o "$date.$type" \
+  run curl -sS -o "$output" \
     -H 'Cache-Control: no-cache' \
     -H "Authorization: Bearer $auth_token" \
     "https://ckc-emea.cisco.com/t/prague-city.com/cdp/v1/opendata/2.0/prague?domain=airqualityreports&fromDate=${date}000000&toDate=${date}235959&pageSize=1000&pageNumber=1&format=$type"
