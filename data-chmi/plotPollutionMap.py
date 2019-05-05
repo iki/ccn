@@ -311,6 +311,7 @@ for slice_id in np.arange(0,len(timeslices)):
     #TimeSlice=NewTable_t #NOTE: this just avoids no database scenario
     print("Timestep: ", query)
     TimeSlice=FilterDatabaseEqual(NewTable_formatted, query, 0) #4 columns with only one 1 timeslice
+    TimeSlice=FilterDatabase(TimeSlice, 0, 3) #removes lines for which concentration is 0
     print("Number of samples in the timeslice: ", np.shape(TimeSlice))
 
     print(TimeSlice)
@@ -366,7 +367,7 @@ for slice_id in np.arange(0,len(timeslices)):
     filename="Pollution-"+str(Molecules[MoleculeNumber])+"-"+str(query)+".png"
     print(TimeCode2TimeStamp(query))
     
-    plot2dHeatMap(X, Y, DataOfInterest, TimeCode2TimeStamp(query), filename, True) #WORKS
+    plot2dHeatMap(X, Y, DataOfInterest, TimeCode2TimeStamp(query), filename, False) #WORKS
 #}}}
     #plotSimplifiedData()
     #plotCompleteDataset()

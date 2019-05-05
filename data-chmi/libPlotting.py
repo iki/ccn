@@ -70,9 +70,11 @@ def plot2dHeatMap(BrutX, BrutY, BrutZ, QuantityTitle, filename, ShowFinalPlot=Tr
       ##See https://matplotlib.org/gallery/images_contours_and_fields/tricontour_smooth_user.html#sphx-glr-gallery-images-contours-and-fields-tricontour-smooth-user-py
       
       plt.triplot(triang, lw=0.1, color='grey')
-      levels = np.linspace(np.min(BrutZ), np.max(BrutZ), 10)
-      #cmap = cm.get_cmaps(name='terrain', lut=None)
-      cmap = cm.get_cmap(name='Blues', lut=None)
+      #levels = np.linspace(np.min(BrutZ), np.max(BrutZ), 10)
+      levels = np.linspace(0, 100, 10)
+      #cmap = cm.get_cmap(name='terrain', lut=None)
+      #cmap = cm.get_cmap(name='Blues', lut=None)
+      cmap = cm.get_cmap(name='BuPu', lut=None)
       plt.tricontourf(tri_refi, z_test_refi, levels=levels, cmap=cmap)
       #plt.tricontour(tri_refi, z_test_refi, levels=levels,
               ##colors=['0.25', '0.5', '0.5', '0.5', '0.5'],
@@ -95,10 +97,10 @@ def plot2dHeatMap(BrutX, BrutY, BrutZ, QuantityTitle, filename, ShowFinalPlot=Tr
       #CS = ax.contour(XX, YY, Z, cmap=plt.cm.Blues) #WORKS
       #plt.colorbar(CS)
       
-      plt.savefig(filename+'.eps')
+      #plt.savefig(filename+'.eps')
       plt.savefig(filename+'.png')
-      print(Header, "** Info: saved ", filename, "eps|png.")
-      if(ShowFinalPlot==1):
+      print(Header, "** Info: saved ", filename, "png.")
+      if(ShowFinalPlot):
         plt.show()
 #}}}
   
