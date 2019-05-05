@@ -1,0 +1,10 @@
+{
+  "name": "ccn",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@here/cli": "latest"
+  },
+  "resolutions": {
+    "**/event-stream": "^4.0.1"
+  }
+}

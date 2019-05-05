@@ -24,3 +24,20 @@ cd data-chmi
 python plotPollutionMaps.py
 ./buildVideo.sh
 ```
+
+## Upload data to [HERE Maps XYZ Studio](https://xyz.here.com/studio/)
+
+```sh
+# Install dependencies
+yarn
+
+# Setup your HERE Maps credentials from https://account.here.com/
+yarn here configure
+
+# Create a data space
+yarn here xyz create --title "CHMI Prague" --message "Show CHMI data from Golemio API"
+
+# Upload data (use ID of the space created in the previous step)
+yarn here xyz upload -f data-chmi/merge.csv --ptag DateToUTC [spaceID]
+
+```
