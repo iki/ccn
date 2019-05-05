@@ -11,9 +11,9 @@ cd data-chmi
 ## Plotting the CHMI data as function of space and time
 
 You can choose the number of the pollutant from the following:
-
+SCALE is 0 to 100. Numbers beyond 100 are projected to 100. 
   1. "NO2": [Video](data-chmi/NO2/2D-Pollution-video.gif)
-  2. "O3" 
+  2. "O3" : [Video](data-chmi/O3/2D-Pollution-video.gif) 
   3. "PM10"
   4. "PM10_24"
   5. "PM2_5"
@@ -25,7 +25,11 @@ python plotPollutionMaps.py
 ./buildVideo.sh
 ```
 
-Example of video is given here: 
+Difficulty are: 
+* Data were unknown before starting. 
+* Data are heterogeneous in space, very discontinuous in time, and sometimes just missing.
+* Management of timestamps and data types of Python. 
+
 
 ## Upload data to [HERE Maps XYZ Studio](https://xyz.here.com/studio/)
 
