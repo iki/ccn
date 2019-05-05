@@ -364,7 +364,7 @@ for slice_id in np.arange(0,len(timeslices)):
     print("Dimension Z: ", np.shape(DataOfInterest))
 
     #plot2dScatteredPoints(X, Y, DataOfInterest, "Pollution", "Pollution.png", True) #WORKS
-    filename="Pollution-"+str(Molecules[MoleculeNumber])+"-"+str(query)+".png"
+    filename="Pollution-"+str(Molecules[MoleculeNumber])+"-"+str(query)
     print(TimeCode2TimeStamp(query))
     
     plot2dHeatMap(X, Y, DataOfInterest, TimeCode2TimeStamp(query), filename, False) #WORKS

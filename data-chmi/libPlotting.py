@@ -97,9 +97,9 @@ def plot2dHeatMap(BrutX, BrutY, BrutZ, QuantityTitle, filename, ShowFinalPlot=Tr
       #CS = ax.contour(XX, YY, Z, cmap=plt.cm.Blues) #WORKS
       #plt.colorbar(CS)
       
-      #plt.savefig(filename+'.eps')
-      plt.savefig(filename+'.png')
-      print(Header, "** Info: saved ", filename, "png.")
+      plt.savefig(filename+'.eps')
+      #plt.savefig(filename+'.png')
+      print(Header, "** Info: saved ", filename, "png|eps.")
       if(ShowFinalPlot):
         plt.show()
 #}}}
