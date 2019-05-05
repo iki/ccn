@@ -7,7 +7,8 @@ import pandas as pd
 from numpy import loadtxt
 from libPlotting import *
 
-
+def TimeCode2TimeStamp(timestamps_epoch):
+    return int(timestamps_epoch) * pd.Timedelta('1s') + pd.Timestamp("1970-01-01")
 
 def FilterDatabase(SPPdb, query, FieldIndex):
     # Version Python2
@@ -232,6 +233,7 @@ stamps=pd.to_datetime(timecapture)
 timestamps_epoch = (stamps - pd.Timestamp("1970-01-01")) // pd.Timedelta('1s')
 #print(timestamps_epoch)
 
+
 # Managing concentrations
 print("Molecule: ", Molecules[MoleculeNumber])
 #print("Example : ", CSV_subset[:,Fields[Molecules[MoleculeNumber]]])
@@ -300,6 +302,10 @@ del latitude_t, longitude_t, concentration_t
 
 #NewTable_t = np.float(NewTable_t) .astype(float)
 print(NewTable_formatted)
+
+## One has to sort the table in time first
+#SortedTable     = NewTable_formatted[np.lexsort((concentration, longitude, latitude))]
+
 for slice_id in np.arange(0,len(timeslices)):
     query = timeslices[slice_id] #WARNING: we select the first timeslice for now
     #TimeSlice=NewTable_t #NOTE: this just avoids no database scenario
@@ -358,7 +364,9 @@ for slice_id in np.arange(0,len(timeslices)):
 
     #plot2dScatteredPoints(X, Y, DataOfInterest, "Pollution", "Pollution.png", True) #WORKS
     filename="Pollution-"+str(Molecules[MoleculeNumber])+"-"+str(query)+".png"
-    plot2dHeatMap(X, Y, DataOfInterest, "Pollution", "Pollution.png", True) #WORKS
+    print(TimeCode2TimeStamp(query))
+    
+    plot2dHeatMap(X, Y, DataOfInterest, TimeCode2TimeStamp(query), filename, True) #WORKS
 #}}}
     #plotSimplifiedData()
     #plotCompleteDataset()

@@ -57,7 +57,7 @@ def plot2dHeatMap(BrutX, BrutY, BrutZ, QuantityTitle, filename, ShowFinalPlot=Tr
       fig = plt.figure()
       #ax = fig.add_subplot(111) #, projection='3d')
       ##plt.gca().set_aspect('equal')
-      #plt.title(QuantityTitle)
+      plt.title(QuantityTitle)
       ##plt.xlabel(r'$E_1$ (V/nm)')
       ##plt.ylabel(r'$E_2$ (V/nm)')
       ##CS = plt.imshow(XX, YY, DensityMax2Dsorted) #, cmap=plt.cm.Blues)
@@ -164,9 +164,9 @@ def plot2dScatteredPoints(BrutX, BrutY, BrutZ, QuantityTitle, filename, ShowFina
       #CS = ax.contour(XX, YY, Z, cmap=plt.cm.Blues) #WORKS
       #plt.colorbar(CS)
       
-      plt.savefig(filename+'.eps')
+      #plt.savefig(filename+'.eps')
       plt.savefig(filename+'.png')
-      print(Header, "** Info: saved ", filename, "eps|png.")
+      print(Header, "** Info: saved ", filename, "png.")
       if(ShowFinalPlot==1):
         plt.show()
 #}}}
