@@ -7,6 +7,8 @@ import pandas as pd
 from numpy import loadtxt
 from libPlotting import *
 
+Verbose=0
+
 def TimeCode2TimeStamp(timestamps_epoch):
     return int(timestamps_epoch) * pd.Timedelta('1s') + pd.Timestamp("1970-01-01")
 
@@ -191,7 +193,7 @@ def plotSimplifiedData(): #{{{
 ## Plots the input file "merge.csv"
 #def plotCompleteDataset(): #{{{
 # Input
-MoleculeNumber=1
+MoleculeNumber=2
 
 Molecules={1: "NO2", 2: "O3", 3: "PM10", 4: "PM10_24", 5: "PM2_5", 6: "SO2"}
 
@@ -354,20 +356,24 @@ for slice_id in np.arange(0,len(timeslices)):
     #DataOfInterest=concentration_s
 
     #fig=plt.figure()
-    print("X: min, max: ", np.min(X), np.max(X))
-    print("Y: min, max: ", np.min(Y), np.max(Y))
-    print("Data: min, max: ", np.min(DataOfInterest), np.max(DataOfInterest))
+    if(Verbose>0):
+        print("X: min, max: ", np.min(X), np.max(X))
+        print("Y: min, max: ", np.min(Y), np.max(Y))
+        print("Data: min, max: ", np.min(DataOfInterest), np.max(DataOfInterest))
 
-    # Isolate each timestep and plot into a separate PNG file
-    print("Dimension X: ", np.shape(X))
-    print("Dimension Y: ", np.shape(Y))
-    print("Dimension Z: ", np.shape(DataOfInterest))
+        # Isolate each timestep and plot into a separate PNG file
+        print("Dimension X: ", np.shape(X))
+        print("Dimension Y: ", np.shape(Y))
+        print("Dimension Z: ", np.shape(DataOfInterest))
 
     #plot2dScatteredPoints(X, Y, DataOfInterest, "Pollution", "Pollution.png", True) #WORKS
     filename="Pollution-"+str(Molecules[MoleculeNumber])+"-"+str(query)
     print(TimeCode2TimeStamp(query))
     
-    plot2dHeatMap(X, Y, DataOfInterest, TimeCode2TimeStamp(query), filename, False) #WORKS
+    try: 
+        plot2dHeatMap(X, Y, DataOfInterest, TimeCode2TimeStamp(query), filename, False) #WORKS
+    except:
+        continue
 #}}}
     #plotSimplifiedData()
     #plotCompleteDataset()
