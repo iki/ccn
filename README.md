@@ -12,7 +12,7 @@ cd data-chmi
 
 You can choose the number of the pollutant from the following:
 
-  1. "NO2": [Video](NO2/2D-Pollution-video.gif)
+  1. "NO2": [Video](data-chmi/NO2/2D-Pollution-video.gif)
   2. "O3" 
   3. "PM10"
   4. "PM10_24"
