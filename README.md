@@ -12,8 +12,8 @@ cd data-chmi
 
 You can choose the number of the pollutant from the following:
 
-  1. "NO2"
-  2. "O3"
+  1. "NO2": NO2/2D-Pollution-video.gif
+  2. "O3" 
   3. "PM10"
   4. "PM10_24"
   5. "PM2_5"
@@ -24,6 +24,8 @@ cd data-chmi
 python plotPollutionMaps.py
 ./buildVideo.sh
 ```
+
+Example of video is given here: 
 
 ## Upload data to [HERE Maps XYZ Studio](https://xyz.here.com/studio/)
 
