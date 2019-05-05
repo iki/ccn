@@ -193,7 +193,7 @@ def plotSimplifiedData(): #{{{
 ## Plots the input file "merge.csv"
 #def plotCompleteDataset(): #{{{
 # Input
-MoleculeNumber=3
+MoleculeNumber=2
 
 Molecules={1: "NO2", 2: "O3", 3: "PM10", 4: "PM10_24", 5: "PM2_5", 6: "SO2"}
 
@@ -312,8 +312,8 @@ for slice_id in np.arange(0,len(timeslices)):
     query = timeslices[slice_id] #WARNING: we select the first timeslice for now
     #TimeSlice=NewTable_t #NOTE: this just avoids no database scenario
     print("Timestep: ", query)
-    TimeSlice=FilterDatabaseEqual(NewTable_formatted, query, 0) #4 columns with only one 1 timeslice
-    TimeSlice=FilterDatabase(TimeSlice, 0, 3) #removes lines for which concentration is 0
+    TimeSlice_unclean=FilterDatabaseEqual(NewTable_formatted, query, 0) #4 columns with only one 1 timeslice
+    TimeSlice=FilterDatabase(TimeSlice_unclean, 0, 3) #removes lines for which concentration is 0
     print("Number of samples in the timeslice: ", np.shape(TimeSlice))
 
     print(TimeSlice)
@@ -333,7 +333,7 @@ for slice_id in np.arange(0,len(timeslices)):
     print("Shape of longitudinal SET: ", np.shape(list(set(np.float128(longitude_s)))))
     print("Shape of latitude SET: ", np.shape(list(set(np.float128(latitude_s)))))
 
-    NumberOfPoints=np.size(longitude_s)
+    #NumberOfPoints=np.size(longitude_s)
 
     #WARNING: plotting the initial dataset is failing! 
     #We need a bijective function for X or Y axis. Here data are 5x5. 
@@ -375,6 +375,9 @@ for slice_id in np.arange(0,len(timeslices)):
     except:
         continue
     del X, Y, DataOfInterest, filename
+    del concentration, latitude, longitude
+    del concentration_s, latitude_s, longitude_s
+    del SortedTable, TimeSlice
 #}}}
     #plotSimplifiedData()
     #plotCompleteDataset()

@@ -98,7 +98,7 @@ def plot2dHeatMap(BrutX, BrutY, BrutZ, QuantityTitle, filename, ShowFinalPlot=Tr
       #plt.colorbar(CS)
       
       plt.savefig(filename+'.eps')
-      #plt.savefig(filename+'.png')
+      plt.savefig(filename+'.png')
       print(Header, "** Info: saved ", filename, "png|eps.")
       if(ShowFinalPlot):
         plt.show()
