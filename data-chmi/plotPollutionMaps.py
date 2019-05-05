@@ -193,7 +193,7 @@ def plotSimplifiedData(): #{{{
 ## Plots the input file "merge.csv"
 #def plotCompleteDataset(): #{{{
 # Input
-MoleculeNumber=2
+MoleculeNumber=3
 
 Molecules={1: "NO2", 2: "O3", 3: "PM10", 4: "PM10_24", 5: "PM2_5", 6: "SO2"}
 
@@ -374,6 +374,7 @@ for slice_id in np.arange(0,len(timeslices)):
         plot2dHeatMap(X, Y, DataOfInterest, TimeCode2TimeStamp(query), filename, False) #WORKS
     except:
         continue
+    del X, Y, DataOfInterest, filename
 #}}}
     #plotSimplifiedData()
     #plotCompleteDataset()
